@@ -1,0 +1,40 @@
+Configuration:
+  status: warn
+
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %5p (%F:%L:%M) - %msg%n"
+
+  Loggers:
+    Logger:
+      name: com
+      level: info
+      AppenderRef:
+        ref: Console
+    Logger:
+      name: org
+      level: info
+      AppenderRef:
+        ref: Console
+    Logger:
+      name: io.springfox
+      level: info
+      AppenderRef:
+        ref: Console
+    Logger:
+      name: org.springframework
+      level: fatal
+      AppenderRef:
+        ref: Console
+    Logger:
+      name: org.springframework.security
+      level: debug
+      AppenderRef:
+        ref: Console
+    Root:
+      level: debug
+      AppenderRef:
+        ref: Console

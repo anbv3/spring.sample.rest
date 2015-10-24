@@ -1,0 +1,9 @@
+*.class
+*.jar
+*.iml
+.idea/
+target/
+**/target/
+.mvn
+mvnw*
+src/main/resources/static
