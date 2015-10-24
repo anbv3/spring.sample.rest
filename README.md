@@ -1,4 +1,4 @@
-# spring.sample.rest
+# Spring rest api sample project
 A sample project for a rest api server based on Spring for the production level.
 Of course, this is not enough, but you could get the idea to start your own project.
 
