@@ -5,9 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.velocity.VelocityAutoConfiguration;
 
 @SpringBootApplication
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = {VelocityAutoConfiguration.class})
 public class SpringSampleRestApplication {
     private static final Logger LOG = LoggerFactory.getLogger(SpringSampleRestApplication.class);
 

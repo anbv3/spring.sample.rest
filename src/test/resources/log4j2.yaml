@@ -10,28 +10,23 @@ Configuration:
 
   Loggers:
     Logger:
-      name: com
+      name: org.hibernate
       level: info
       AppenderRef:
         ref: Console
     Logger:
-      name: org
-      level: info
-      AppenderRef:
-        ref: Console
-    Logger:
-      name: io.springfox
-      level: info
+      name: springfox.documentation
+      level: error
       AppenderRef:
         ref: Console
     Logger:
       name: org.springframework
-      level: fatal
+      level: info
       AppenderRef:
         ref: Console
     Logger:
       name: org.springframework.security
-      level: debug
+      level: info
       AppenderRef:
         ref: Console
     Root:
