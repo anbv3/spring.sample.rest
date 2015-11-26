@@ -15,50 +15,48 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import spring.sample.rest.exceptions.DuplicatedEntityException;
 import spring.sample.rest.exceptions.EntityNotFoundException;
 
-import java.util.UUID;
-
 public class BaseApiController {
     private static final Logger LOG = LoggerFactory.getLogger(BaseApiController.class);
 
     @ExceptionHandler({AccessDeniedException.class, AuthenticationException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public VndErrors handleAuthError(Exception e) {
+    public VndErrors.VndError handleAuthError(Exception e) {
         LOG.error("Internal error", e);
-        return new VndErrors(UUID.randomUUID().toString(), e.getMessage());
+        return new VndErrors.VndError("api.http.no_authority", e.getMessage());
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, ServletRequestBindingException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public VndErrors handleValidationError(Exception e) {
-        return new VndErrors(UUID.randomUUID().toString(), e.getMessage());
+    public VndErrors.VndError handleValidationError(Exception e) {
+        return new VndErrors.VndError("api.http.bad_request", e.getMessage());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public VndErrors handleNotFoundException(Exception e) {
-        return new VndErrors(UUID.randomUUID().toString(), e.getMessage());
+    public VndErrors.VndError handleNotFoundException(Exception e) {
+        return new VndErrors.VndError("api.http.entity_not_found", e.getMessage());
     }
 
     @ExceptionHandler(DuplicatedEntityException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
-    public VndErrors handleDuplicateError(Exception e) {
-        return new VndErrors(UUID.randomUUID().toString(), e.getMessage());
+    public VndErrors.VndError handleDuplicateError(Exception e) {
+        return new VndErrors.VndError("api.http.duplicated_request", e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public VndErrors handleUnexpectedException(Exception e) {
+    public VndErrors.VndError handleUnexpectedException(Exception e) {
         LOG.error("Internal error", e);
 
         if (Strings.isNullOrEmpty(e.getMessage())) {
-            return new VndErrors(UUID.randomUUID().toString(), e.toString());
+            return new VndErrors.VndError("api.http.internal_server_error", e.toString());
         }
 
-        return new VndErrors(UUID.randomUUID().toString(), e.getMessage());
+        return new VndErrors.VndError("api.http.internal_server_error", e.getMessage());
     }
 }

@@ -64,7 +64,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -156,7 +156,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <encoding>${project.sourceEncoding}</encoding>
+                    <encoding>cp1252</encoding>
                 </configuration>
             </plugin>
             <plugin>

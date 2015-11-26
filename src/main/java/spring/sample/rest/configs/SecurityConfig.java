@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.csrf.CsrfFilter;
 import spring.sample.rest.security.CsrfTokenHeaderFilter;
 import spring.sample.rest.security.RESTAuthenticationEntryPoint;
@@ -16,7 +17,6 @@ import spring.sample.rest.security.RESTAuthenticationEntryPoint;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RESTAuthenticationEntryPoint authenticationEntryPoint;
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -34,18 +34,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.addFilterAfter(new CsrfTokenHeaderFilter(), CsrfFilter.class)
-            .csrf()
-            .disable() // or .and() // need to add the csrf token in every request header
+            .csrf().disable() // or .and() // need to add the csrf token in every request header
             .httpBasic()
             .and()
-            .authorizeRequests()
-            .antMatchers("/api/v1/**")
-            .authenticated()
-            .anyRequest()
-            .permitAll()
+                .authorizeRequests()
+                    .antMatchers("/api/v1/**")
+                    .authenticated()
+                    .anyRequest()
+                    .permitAll()
             .and()
-            .exceptionHandling()
-            .authenticationEntryPoint(authenticationEntryPoint);
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+            .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }
 }
