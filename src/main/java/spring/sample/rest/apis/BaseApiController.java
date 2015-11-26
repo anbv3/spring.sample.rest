@@ -22,7 +22,7 @@ public class BaseApiController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public VndErrors.VndError handleAuthError(Exception e) {
-        LOG.error("Internal error", e);
+        LOG.error("Authentication error", e);
         return new VndErrors.VndError("api.http.no_authority", e.getMessage());
     }
 
